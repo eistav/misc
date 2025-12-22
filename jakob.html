@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prime 330 leveres snart</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #0e1116;
+        --bg-soft: #171c24;
+        --card: rgba(255, 255, 255, 0.06);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --text: #f5f7fb;
+        --muted: #b4becc;
+        --accent: #ff5b35;
+        --accent-soft: rgba(255, 91, 53, 0.18);
+        --accent-2: #6ed3ff;
+        --max-width: 1120px;
+        --radius-lg: 28px;
+        --radius-md: 16px;
+        --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        --grid-gap: clamp(20px, 3vw, 36px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top left, #1b2330 0%, #0e1116 45%)
+            fixed,
+          radial-gradient(circle at 80% 20%, rgba(110, 211, 255, 0.16), transparent 50%),
+          var(--bg);
+        min-height: 100vh;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          180deg,
+          rgba(14, 17, 22, 0.85) 0%,
+          rgba(14, 17, 22, 0.4) 100%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .nav {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+      }
+
+      .badge {
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 600;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(255, 91, 53, 0.35);
+      }
+
+      main {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 64px 24px 96px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: clamp(24px, 4vw, 64px);
+        align-items: center;
+      }
+
+      .hero-copy h1 {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-size: clamp(2.6rem, 4vw, 4rem);
+        line-height: 1.05;
+        margin: 0 0 18px;
+      }
+
+      .hero-copy p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        color: #140905;
+        box-shadow: 0 18px 40px rgba(255, 91, 53, 0.35);
+      }
+
+      .btn.primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn.ghost {
+        border-color: rgba(255, 255, 255, 0.25);
+        color: var(--text);
+      }
+
+      .hero-card {
+        position: relative;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: #0b0f14;
+        min-height: 360px;
+      }
+
+      .hero-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.88;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(12, 16, 22, 0.1) 0%,
+          rgba(12, 16, 22, 0.8) 100%
+        );
+        display: flex;
+        align-items: flex-end;
+        padding: 24px;
+      }
+
+      .hero-overlay span {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .section {
+        margin-top: 80px;
+      }
+
+      .section h2 {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-size: clamp(1.9rem, 3vw, 2.8rem);
+        margin: 0 0 18px;
+      }
+
+      .section p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .grid {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: var(--grid-gap);
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 22px;
+        min-height: 160px;
+        backdrop-filter: blur(18px);
+      }
+
+      .card h3 {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-size: 1.2rem;
+        margin: 0 0 10px;
+      }
+
+      .spec {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+        font-weight: 500;
+      }
+
+      .spec-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent-2);
+        box-shadow: 0 0 16px rgba(110, 211, 255, 0.65);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .timeline-step {
+        display: grid;
+        grid-template-columns: 52px 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 18px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(9, 13, 18, 0.65);
+      }
+
+      .step-number {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(110, 211, 255, 0.12);
+        display: grid;
+        place-items: center;
+        color: var(--accent-2);
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-weight: 600;
+      }
+
+      .footer {
+        margin-top: 96px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.9s ease forwards;
+      }
+
+      .reveal.delay-1 {
+        animation-delay: 0.15s;
+      }
+
+      .reveal.delay-2 {
+        animation-delay: 0.3s;
+      }
+
+      .reveal.delay-3 {
+        animation-delay: 0.45s;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-actions {
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav" style="flex-direction: row;">
+        <div class="brand">Julelevering 2025</div>
+        <div class="badge">Leveres om få uker</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h1 class="reveal">Kjære Jakob. Julenissen ble forsinket, men din nye gaming-PC er på vei.</h1>
+          <p class="reveal delay-1">
+            Det var dessverre ikke mulig å rekke levering før jul i år. Men den
+            nye PCSpecialist Prime 330 R5-7X3D/16/1TB/5060Ti er allerede i
+            produksjon og lander hos deg om noen få uker. Verdens beste
+            oppgradering til vinterkveldene er nesten her.
+          </p>
+          <div class="hero-actions reveal delay-2">
+            <a class="btn primary" href="https://www.elkjop.no/product/pc-datautstyr-og-kontor/pc/stasjonar-pc/pcspecialist-prime-330-r5-7x3d161tb5060ti-stasjonar-gaming-pc/1014147">Utforsk maskinen</a>
+          </div>
+        </div>
+        <div class="hero-card reveal delay-3">
+          <img src="images/prime330.jpg" alt="PCSpecialist Prime 330 gaming-PC" />
+          <div class="hero-overlay">
+            <span>Prime 330: klar for 1440p+ gaming</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="specs" class="section">
+        <h2 class="reveal">Bygget for å dominere spillkveldene</h2>
+        <p class="reveal delay-1">
+          Prime 330 er satt opp for høy FPS, lave temperaturer og lynrask
+          respons. Dette er en maskin som takler alt fra konkurransespill til
+          tunge AAA-titler uten å blunke.
+        </p>
+        <div class="grid">
+          <div class="card reveal delay-2">
+            <h3>Ryzen 7 X3D-kraft</h3>
+            <p>
+              Ekstra stor 3D V-Cache gir stabile bilderater og minimal input lag
+              når det virkelig gjelder.
+            </p>
+            <div class="spec">
+              <span class="spec-dot"></span>
+              <span>Optimalisert for e-sport og streaming</span>
+            </div>
+          </div>
+          <div class="card reveal delay-2">
+            <h3>RTX 5060 Ti grafikk</h3>
+            <p>
+              Klar for 1440p og høy refresh-rate, med ray tracing og DLSS for
+              skarpere scener.
+            </p>
+            <div class="spec">
+              <span class="spec-dot"></span>
+              <span>Perfekt for ultrawide og høy Hz</span>
+            </div>
+          </div>
+          <div class="card reveal delay-2">
+            <h3>16 GB RAM + 1 TB NVMe</h3>
+            <p>
+              Rask oppstart, raske loads og plass til hele biblioteket uten
+              kompromiss.
+            </p>
+            <div class="spec">
+              <span class="spec-dot"></span>
+              <span>Stillegående, kjølig og rask</span>
+            </div>
+          </div>
+          <div class="card reveal delay-2">
+            <h3>Gaming-ready kjøling</h3>
+            <p>
+              Luftstrøm og komponentvalg som holder boost-klokkene stabile selv
+              under lange økter.
+            </p>
+            <div class="spec">
+              <span class="spec-dot"></span>
+              <span>Stabil ytelse hele natten</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="levering" class="section">
+        <h2 class="reveal">Slik ser leveringen ut</h2>
+        <p class="reveal delay-1">
+          Julenissen rakk ikke frem i år, men vi holder deg løpende oppdatert.
+          Maskinen er allerede i systemet og sendes så snart bygget er ferdig.
+        </p>
+        <div class="timeline">
+          <div class="timeline-step reveal delay-2">
+            <div class="step-number">01</div>
+            <div>
+              <strong>Bekreftet bestilling</strong>
+              <p>Prime 330 er låst inn og klargjøres for bygg.</p>
+            </div>
+          </div>
+          <div class="timeline-step reveal delay-2">
+            <div class="step-number">02</div>
+            <div>
+              <strong>Bygg og testing</strong>
+              <p>Komponentene monteres, testes og finjusteres.</p>
+            </div>
+          </div>
+          <div class="timeline-step reveal delay-2">
+            <div class="step-number">03</div>
+            <div>
+              <strong>Levering om få uker</strong>
+              <p>Forvent levering om 1–2 uker, avhengig av logistikk.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="reveal">Et lite forskudd på wow-faktoren</h2>
+        <p class="reveal delay-1">
+          Når den lander, er dette en maskin som kan kjøre de nyeste spillene på
+          høye innstillinger, gi deg silky smooth bilde og massivt overskudd til
+          streaming, kreative prosjekter og alt mellom.
+        </p>
+      </section>
+
+      <div class="footer">
+        Snart på plass: PCSpecialist Prime 330 R5-7X3D/16/1TB/5060Ti.
+      </div>
+    </main>
+  </body>
+</html>

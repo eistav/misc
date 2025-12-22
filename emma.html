@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amsterdam for Emma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #18222b;
+      --sand: #f7f1e7;
+      --canal: #0f6b6f;
+      --terracotta: #d16d4a;
+      --sun: #f4c24d;
+      --mist: #e6eceb;
+      --card: #fffaf3;
+      --shadow: 0 20px 60px rgba(24, 34, 43, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(244, 194, 77, 0.35), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(209, 109, 74, 0.28), transparent 40%),
+        linear-gradient(180deg, var(--sand), #fffefb 55%, var(--mist));
+      min-height: 100vh;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(15, 107, 111, 0.08) 0 1px, transparent 1px 120px),
+        repeating-linear-gradient(0deg, rgba(24, 34, 43, 0.06) 0 1px, transparent 1px 120px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 6vw 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--canal);
+      font-weight: 600;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      margin-left: 18px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      padding: 40px 6vw 70px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 24px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--canal);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta span {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 30px 60px rgba(24, 34, 43, 0.22);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(24, 34, 43, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(244, 194, 77, 0.35);
+      top: -60px;
+      right: -40px;
+    }
+
+    .hero-card h2 {
+      font-family: "Fraunces", serif;
+      font-size: 1.6rem;
+      margin: 0 0 14px;
+    }
+
+    .hero-card ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-card li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.98rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--terracotta);
+    }
+
+    .section {
+      padding: 60px 6vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section h2 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 14px;
+    }
+
+    .section p {
+      max-width: 720px;
+      line-height: 1.7;
+      margin: 0 0 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(24, 34, 43, 0.08);
+      box-shadow: 0 15px 40px rgba(24, 34, 43, 0.08);
+      min-height: 160px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(244, 194, 77, 0.4), rgba(209, 109, 74, 0.18));
+      border-left: 4px solid var(--terracotta);
+      padding: 18px 20px;
+      border-radius: 16px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .timeline-item strong {
+      color: var(--canal);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 40px 6vw 70px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: rgba(24, 34, 43, 0.7);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: float-in 0.9s ease forwards;
+    }
+
+    .reveal.delay-1 { animation-delay: 0.2s; }
+    .reveal.delay-2 { animation-delay: 0.35s; }
+    .reveal.delay-3 { animation-delay: 0.5s; }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tag">Reisebrev 2025</div>
+      <nav>
+        <a href="#amsterdam">Amsterdam</a>
+        <a href="#sombr">Sombr</a>
+        <a href="#gaven">Gaven</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="amsterdam">
+      <div>
+        <h1 class="reveal">Emma, dette er din Amsterdam-drøm.</h1>
+        <p class="reveal delay-1">En helg full av kanaler, kafeduft, vintersol og musikk. Du skal på en opplevelse for livet.</p>
+      </div>
+      <div class="hero-card reveal delay-3">
+        <h2>Hva som venter deg</h2>
+        <ul>
+          <li><span class="dot"></span>Sightseeing og opplevelser.</li>
+          <li><span class="dot"></span>Masse god mat og drikke.</li>
+          <li><span class="dot"></span>Konsert med Sombr.</li>
+          <li><span class="dot"></span>Minner for livet.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="sombr" style="padding-top: 0;">
+      <h2 class="reveal">Sombr i Amsterdam</h2>
+      <p class="reveal delay-1">En av dine favorittartister, Sombr, spiller i Amsterdam, og du skal være der. Det blir en kveld du kommer til å huske: nær scenen, full av lys, og akkurat den stemningen som bare en storby kan gi.</p>
+      <div class="grid">
+        <div class="card reveal delay-2">
+          <h3>Konsertkvelden</h3>
+          <p>Hovedattraksjonen er selvfølgelig selve konserten. Husk gode sko!</p>
+        </div>
+        <div class="card reveal delay-3">
+          <h3>Byen som scene</h3>
+          <p>Amsterdam lyser opp om kvelden. Nyt en kanaltur med en bedre middag, eller vandre en tur i gatene.</p>
+        </div>
+        <div class="card reveal delay-3">
+          <h3>Minnebank</h3>
+          <p>Husk å ta masse bilder, og en spilleliste som følger deg hjem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gaven" style="padding-top: 0;">
+      <h2 class="reveal">Gaven til eventyret - 10 000,-</h2>
+      <p class="reveal delay-1">Vi gir deg penger til å gjøre reisen akkurat slik du vil ha den. Det skal dekke reisen og små øyeblikk som gjør opplevelsen komplett.</p>
+      <div class="highlight reveal delay-2">10 000,- er din frihet til å skape en Amsterdam-tur akkurat slik du drømmer om.</div>
+    </section>
+
+    <footer>
+      Dette er starten på reisen din til Amsterdam. Skap en opplevelse for livet!
+    </footer>
+  </div>
+</body>
+</html>

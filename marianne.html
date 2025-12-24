@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crall Santa: Personlig trener</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e1513;
+      --panel: #131e1a;
+      --panel-strong: #182522;
+      --text: #e8f4ee;
+      --muted: rgba(232, 244, 238, 0.7);
+      --accent: #6ee7a8;
+      --lime: #b8ff7b;
+      --ink: #0b110f;
+      --shadow: 0 25px 60px rgba(7, 12, 10, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(110, 231, 168, 0.15), transparent 50%),
+        radial-gradient(circle at 85% 0%, rgba(184, 255, 123, 0.18), transparent 45%),
+        linear-gradient(180deg, #0b1210, var(--bg) 40%, #0c1412 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .page::before {
+      background-image:
+        repeating-linear-gradient(120deg, rgba(110, 231, 168, 0.08) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(-60deg, rgba(232, 244, 238, 0.05) 0 1px, transparent 1px 120px);
+      opacity: 0.5;
+    }
+
+    .page::after {
+      background: radial-gradient(circle at 70% 80%, rgba(110, 231, 168, 0.08), transparent 55%);
+      opacity: 0.8;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 6vw 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      margin-left: 18px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      padding: 40px 6vw 70px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      letter-spacing: 0.02em;
+      margin: 0 0 12px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, var(--accent), var(--lime));
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 18px 40px rgba(110, 231, 168, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta span {
+      background: rgba(11, 17, 15, 0.12);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 26px 60px rgba(110, 231, 168, 0.35);
+    }
+
+    .hero-media {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(232, 244, 238, 0.08);
+      background: var(--panel);
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      min-height: 340px;
+    }
+
+    .hero-note {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(19, 30, 26, 0.9);
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(7, 12, 10, 0.3);
+    }
+
+    .hero-card {
+      background: var(--panel);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(232, 244, 238, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(110, 231, 168, 0.14);
+      top: -60px;
+      right: -40px;
+    }
+
+    .hero-card h2 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.02em;
+      margin: 0 0 12px;
+    }
+
+    .hero-card ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-card li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .section {
+      padding: 60px 6vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section h2 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      max-width: 720px;
+      line-height: 1.7;
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--panel-strong);
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 244, 238, 0.08);
+      box-shadow: 0 18px 40px rgba(7, 12, 10, 0.25);
+      min-height: 160px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(110, 231, 168, 0.2), rgba(184, 255, 123, 0.12));
+      border-left: 4px solid var(--accent);
+      padding: 18px 20px;
+      margin-top: 20px;
+      border-radius: 16px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 18px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .timeline-item div {
+      padding-left: 20px;
+    }
+
+    .timeline-item strong {
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+      padding-right: 20px;
+    }
+
+    footer {
+      padding: 40px 6vw 70px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: rgba(232, 244, 238, 0.6);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: float-in 0.9s ease forwards;
+    }
+
+    .reveal.delay-1 { animation-delay: 0.2s; }
+    .reveal.delay-2 { animation-delay: 0.35s; }
+    .reveal.delay-3 { animation-delay: 0.5s; }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tag">Crall Santa 2024</div>
+      <nav>
+        <a href="#gaven">Gaven</a>
+        <a href="#planen">Planen</a>
+        <a href="#treneren">Treneren</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="gaven">
+      <div>
+        <h1 class="reveal">Crall Santa gir deg et ekstra gir.</h1>
+        <p class="reveal delay-1">Du får 5 000,- i julegave til personlig trener. Målet er enkelt: enda sterkere, enda sprekere, og fortsatt helt deg.</p>
+        <a class="cta reveal delay-2" href="#planen">Se gaven <span>5 000,-</span></a>
+      </div>
+      <div class="hero-media reveal delay-3">
+        <img src="images/nanne.png" alt="Marianne klar for trening med et fokusert uttrykk." />
+        <div class="hero-note">Din beste form, neste nivå.</div>
+      </div>
+    </section>
+
+    <section class="section" id="planen" style="padding-top: 0;">
+      <h2 class="reveal">Slik bruker vi gaven</h2>
+      <p class="reveal delay-1">En personlig trener som matcher deg, dine mål og hverdagen din. Vi lager en plan som gir tydelig progresjon og skikkelig mestring.</p>
+      <div class="grid">
+        <div class="card reveal delay-2">
+          <h3>Velg riktig PT</h3>
+          <p>Vi finner en trener som forstår deg, presser deg riktig og gjør trening gøy.</p>
+        </div>
+        <div class="card reveal delay-3">
+          <h3>Struktur og flyt</h3>
+          <p>En tydelig plan gjør at hver uke føles som fremgang, ikke bare slit.</p>
+        </div>
+        <div class="card reveal delay-3">
+          <h3>Resultater som varer</h3>
+          <p>Teknikk, styrke og kondis som gir trygghet og energi hele året.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="treneren" style="padding-top: 0;">
+      <h2 class="reveal">Hvorfor personlig trener</h2>
+      <p class="reveal delay-1">Du er allerede i god form. Nå handler det om detaljer, kvalitet og å få mer ut av hver økt.</p>
+      <div class="timeline">
+        <div class="timeline-item reveal delay-2">
+          <strong>1. Skreddersydd</strong>
+          <div>Trening som tar hensyn til mål, tid og hva som faktisk funker for deg.</div>
+        </div>
+        <div class="timeline-item reveal delay-3">
+          <strong>2. Teknikken</strong>
+          <div>Små justeringer gir stor effekt, tryggere løft og bedre fremgang.</div>
+        </div>
+        <div class="timeline-item reveal delay-3">
+          <strong>3. Drive</strong>
+          <div>En trener som heier, utfordrer og sørger for at du alltid vil litt mer.</div>
+        </div>
+      </div>
+      <div class="highlight reveal delay-2">5 000,- er din startpakke til en ny, enda sterkere treningsperiode.</div>
+    </section>
+
+    <footer>
+      God jul! Vi gleder oss til å se deg knuse målene dine.
+    </footer>
+  </div>
+</body>
+</html>
